@@ -1,0 +1,11 @@
+{
+  "name": "ffbe-scrapper",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "scripts": {},
+  "dependencies": {}
+}

@@ -1,0 +1,11 @@
+extends:
+  - ../../.eslintrc.yaml
+
+ignorePatterns:
+  - '!*'
+  - 'dist/**/*'
+
+parserOptions:
+  ecmaVersion: 2023
+  project: packages/ffbe-scrapper/tsconfig.json
+  sourceType: module
