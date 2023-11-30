@@ -1,0 +1,61 @@
+env:
+  es2021: true
+  node: true
+
+parser: "@typescript-eslint/parser"
+
+ignorePatterns:
+  - '**/*'
+
+extends:
+  - eslint:recommended
+  - plugin:@typescript-eslint/recommended-type-checked
+  - plugin:@typescript-eslint/strict-type-checked
+  - plugin:import/typescript
+  - prettier
+plugins:
+  - "@typescript-eslint"
+  - unused-imports
+  - simple-import-sort
+  - import
+  - prettier
+
+rules:
+  no-await-in-loop: error
+  no-duplicate-imports: error
+  func-style:
+    - error
+    - expression
+  camelcase:
+    - error
+    - ignoreImports: true
+  eqeqeq: error
+  no-else-return: error
+  no-lonely-if: error
+  prefer-const: error
+  # prefer-arrow-callback: warn
+  # require-await: error
+
+  "@typescript-eslint/return-await": error
+  "@typescript-eslint/array-type":
+    - error
+    - default: array-simple
+  "@typescript-eslint/consistent-type-definitions": error
+  "@typescript-eslint/prefer-for-of": error
+  "@typescript-eslint/space-before-function-paren": warn
+  "@typescript-eslint/space-before-blocks": error
+  
+  unused-imports/no-unused-imports: error
+
+  import/exports-last: error
+  import/first: error
+  import/no-duplicates: error
+  import/order: off
+
+  simple-import-sort/imports: error
+  simple-import-sort/exports: error
+
+  prettier/prettier: 
+    - error
+    - {}
+    - usePrettierrc: true
