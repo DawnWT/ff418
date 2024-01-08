@@ -6,6 +6,7 @@
     "dist"
   ],
   "type": "module",
-  "scripts": {},
-  "dependencies": {}
+  "dependencies": {
+    "zod": "^3.22.4"
+  }
 }
