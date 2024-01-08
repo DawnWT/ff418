@@ -2,6 +2,7 @@ import { FILES_NAME } from './ressources/files.js'
 import { VARIABLES } from './ressources/variables.js'
 import { rawLbSchema } from './schemas/lb.js'
 import { rawLbLvlSchema } from './schemas/lbLvl.js'
+import { rawMagicSchema } from './schemas/magic.js'
 import { rawSkillOfUnitSchema } from './schemas/skillOfUnit.js'
 import { rawUnitSchema } from './schemas/unit.js'
 import { FFBECrypto } from './services/crypto.js'
@@ -138,6 +139,24 @@ class FFBEScrapper {
   async *iterateLbsLvl() {
     for await (const [LbLvl, raw] of this.#iterateItems('F_LIMITBURST_LV_MST')) {
       const validate = rawLbLvlSchema.safeParse(LbLvl)
+
+      if (validate.success) {
+        yield { ...validate.data, raw }
+      }
+    }
+  }
+
+  async getMagics() {
+    const magics = await this.#getItems('F_MAGIC_MST')
+
+    const validate = rawMagicSchema.array().parse(magics)
+
+    return validate
+  }
+
+  async *iterateMagics() {
+    for await (const [magic, raw] of this.#iterateItems('F_MAGIC_MST')) {
+      const validate = rawMagicSchema.safeParse(magic)
 
       if (validate.success) {
         yield { ...validate.data, raw }
