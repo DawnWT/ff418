@@ -1,6 +1,7 @@
 import { FILES_NAME } from './ressources/files.js'
 import { VARIABLES } from './ressources/variables.js'
 import { rawLbSchema } from './schemas/lb.js'
+import { rawLbLvlSchema } from './schemas/lbLvl.js'
 import { rawSkillOfUnitSchema } from './schemas/skillOfUnit.js'
 import { rawUnitSchema } from './schemas/unit.js'
 import { FFBECrypto } from './services/crypto.js'
@@ -119,6 +120,24 @@ class FFBEScrapper {
   async *iterateLbs() {
     for await (const [Lb, raw] of this.#iterateItems('F_LIMITBURST_MST')) {
       const validate = rawLbSchema.safeParse(Lb)
+
+      if (validate.success) {
+        yield { ...validate.data, raw }
+      }
+    }
+  }
+
+  async getLbsLvl() {
+    const rawLbLvl = await this.#getItems('F_LIMITBURST_LV_MST')
+
+    const validate = rawLbLvlSchema.array().parse(rawLbLvl)
+
+    return validate
+  }
+
+  async *iterateLbsLvl() {
+    for await (const [LbLvl, raw] of this.#iterateItems('F_LIMITBURST_LV_MST')) {
+      const validate = rawLbLvlSchema.safeParse(LbLvl)
 
       if (validate.success) {
         yield { ...validate.data, raw }
