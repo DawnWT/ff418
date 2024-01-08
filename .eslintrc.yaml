@@ -44,7 +44,11 @@ rules:
     - default: array-simple
   "@typescript-eslint/consistent-type-definitions": error
   "@typescript-eslint/prefer-for-of": error
-  "@typescript-eslint/space-before-function-paren": warn
+  # "@typescript-eslint/space-before-function-paren": 
+  #   - warn
+  #   - anonymous: never
+  #     named: never
+  #     asyncArrow: always
   "@typescript-eslint/space-before-blocks": error
   
   unused-imports/no-unused-imports: error
@@ -58,6 +62,6 @@ rules:
   simple-import-sort/exports: error
 
   prettier/prettier: 
-    - error
+    - warn
     - {}
     - usePrettierrc: true
