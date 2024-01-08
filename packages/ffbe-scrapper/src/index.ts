@@ -1,5 +1,6 @@
 import { FILES_NAME } from './ressources/files.js'
 import { VARIABLES } from './ressources/variables.js'
+import { rawUnitSchema } from './schemas/unit.js'
 import { FFBECrypto } from './services/crypto.js'
 import { FFBEFetcher, FFBEFetcherFactory } from './services/fetcher.js'
 import { FFBEMst } from './services/mst.js'
@@ -67,5 +68,23 @@ class FFBEScrapper {
     const parsedItems = items.map((item) => JSON.parse(item) as unknown)
 
     return parsedItems
+  }
+
+  async getUnits() {
+    const rawUnits = await this.#getItems('F_UNIT_MST')
+
+    const validate = rawUnitSchema.array().parse(rawUnits)
+
+    return validate
+  }
+
+  async *iterateUnits() {
+    for await (const [Unit, raw] of this.#iterateItems('F_UNIT_MST')) {
+      const validate = rawUnitSchema.safeParse(Unit)
+
+      if (validate.success) {
+        yield { ...validate.data, raw }
+      }
+    }
   }
 export { FFBEScrapper }
